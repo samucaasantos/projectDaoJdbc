@@ -22,6 +22,12 @@ public class Program2 {
         List<Department> departments = departmentDao.findAll();
         departments.forEach(System.out::println);
 
+        System.out.println("\n=== Test 3: department insert === ");
+        Department dep = new Department(null, "Toys");
+        departmentDao.insert(dep);
+        System.out.println("New department inserted! New department id: " + dep.getId());
+
+
 
     }
 }
