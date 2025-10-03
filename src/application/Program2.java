@@ -27,6 +27,18 @@ public class Program2 {
         departmentDao.insert(dep);
         System.out.println("New department inserted! New department id: " + dep.getId());
 
+        System.out.println("\n=== Test 4: department update === ");
+        department = departmentDao.findById(6);
+        department.setName("Kitchen");
+        departmentDao.update(department);
+        System.out.println("Department updated sucessfully!");
+
+        System.out.println("\n=== Test 5: department delete === ");
+        System.out.println("Enter id for delete test: ");
+        int id = sc.nextInt();
+        departmentDao.deleteById(id);
+        System.out.println("Department deleted sucessfully!");
+
 
 
     }

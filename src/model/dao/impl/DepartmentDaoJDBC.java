@@ -49,12 +49,40 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public void update(Department department) {
+        PreparedStatement statement = null;
+        try{
+            statement = connection.prepareStatement(
+                    "UPDATE department SET Name = ? WHERE id = ?", statement.RETURN_GENERATED_KEYS);
 
+            statement.setString(1,department.getName());
+            statement.setInt(2,department.getId());
+
+            statement.executeUpdate();
+        }catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }finally {
+            DB.closeStatement(statement);
+        }
     }
 
     @Override
     public void deleteById(Integer id) {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement("DELETE FROM department WHERE id = ?");
 
+            statement.setInt(1, id);
+
+            int rows =  statement.executeUpdate();
+
+            if (rows == 0) {
+                throw new DbException("Unexpected error! The given id doesn't exist!");
+            }
+        }catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }finally {
+            DB.closeStatement(statement);
+        }
     }
 
     @Override
